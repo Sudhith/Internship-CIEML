@@ -1,0 +1,46 @@
+{
+  "entry_id": "claims_visakhapatnam_may2026",
+  "kind": "claim_closure_snapshot",
+  "grade": "candidate",
+  "campaign_id": "visakhapatnam_may2026",
+  "domain": "coastal",
+  "framework_version": null,
+  "payload": {
+    "campaign_closure": "MIXED_PROVISIONAL",
+    "claims": {
+      "H1_data_trustworthiness": {
+        "classification": "EXPLORATORY",
+        "overall_confidence": 88.9
+      },
+      "H2_physical_coherence": {
+        "classification": "EXPLORATORY",
+        "overall_confidence": 88.9
+      },
+      "H3_information_redundancy": {
+        "classification": "PROVISIONAL",
+        "overall_confidence": 88.8
+      },
+      "H4_environmental_regimes": {
+        "classification": "EXPLORATORY",
+        "overall_confidence": 79.9
+      },
+      "H5_anomaly_reality": {
+        "classification": "EXPLORATORY",
+        "overall_confidence": 26.9
+      },
+      "H6_policy_transfer": {
+        "classification": "EXPLORATORY",
+        "overall_confidence": 87.5
+      }
+    }
+  },
+  "provenance": {
+    "campaign_id": "visakhapatnam_may2026",
+    "artifacts": [
+      "outputs/phase8/stage14_four_pillar_closure.json",
+      "outputs/phase7/stage13_applicability_domain.json"
+    ]
+  },
+  "version": 2,
+  "supersedes": "claims_visakhapatnam_may2026.json"
+}

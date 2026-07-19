@@ -80,8 +80,10 @@ def run_stage11(regime_labels: pd.DataFrame, output_dir: Path | None = None) -> 
     # --- Station similarity (1 - corr of mean profiles; also euclidean on z) ---
     corr = station_mean.T.corr()
     sim = corr.copy()
-    dist = 1 - corr
-    np.fill_diagonal(dist.values, 0)
+    dist = (1 - corr).copy()
+    arr = dist.to_numpy(copy=True)
+    np.fill_diagonal(arr, 0)
+    dist.iloc[:, :] = arr
 
     # Hierarchical clustering of stations
     condensed = squareform(dist.values, checks=False)

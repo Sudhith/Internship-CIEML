@@ -1,0 +1,19 @@
+{
+  "entry_id": "physical_support_visakhapatnam_may2026",
+  "kind": "physical_relationship_support",
+  "grade": "candidate",
+  "campaign_id": "visakhapatnam_may2026",
+  "domain": "coastal",
+  "payload": {
+    "support_rate_required": 1.0,
+    "n_required_broken": 0
+  },
+  "provenance": {
+    "campaign_id": "visakhapatnam_may2026",
+    "artifacts": [
+      "stage03_physical_report.json"
+    ]
+  },
+  "version": 2,
+  "supersedes": "physical_support_visakhapatnam_may2026.json"
+}
