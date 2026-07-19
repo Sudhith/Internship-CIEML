@@ -1,0 +1,15 @@
+# Feature → human measurand + deployable sensor family (SC-DSS)
+version: "1.0.0"
+map:
+  do_mg_l__mean: {measurand: "Dissolved oxygen (mg/L)", sensor_family: ODO}
+  do_sat_pct__mean: {measurand: "Dissolved oxygen (% sat)", sensor_family: ODO}
+  ph__mean: {measurand: "pH", sensor_family: pH}
+  salinity_psu__mean: {measurand: "Salinity", sensor_family: CTD/conductivity}
+  spcond_us_cm__mean: {measurand: "Specific conductance", sensor_family: CTD/conductivity}
+  turbidity_fnu__mean: {measurand: "Turbidity", sensor_family: Optical turbidity}
+  temperature_c__mean: {measurand: "Temperature", sensor_family: Thermistor}
+  barometer_mmhg__mean: {measurand: "Barometric pressure", sensor_family: Barometer}
+  idx_do_sat_gap: {measurand: "DO%-DO consistency index", sensor_family: "Derived from ODO pair"}
+  idx_do_solubility_stress: {measurand: "DO solubility stress index", sensor_family: "Derived T+DO"}
+  idx_mixing_contrast: {measurand: "Mixing contrast index", sensor_family: "Derived S+turbidity"}
+  idx_carbonate_thermal: {measurand: "Carbonate-thermal index", sensor_family: "Derived pH+T"}

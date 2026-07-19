@@ -1,0 +1,124 @@
+# Claim pack: coastal multiparameter monitoring (legacy H1–H6)
+# Pack is configuration; EBSVE pillar algebra lives in cieml.evidence.
+pack_id: coastal_monitoring_v1
+title: Coastal multiparameter monitoring claims
+version: "1.0.0"
+domain_affinity: coastal
+campaign_agnostic: true
+legacy_pack_id: coastal_monitoring_h1_h6
+description: >
+  First CIEML claim pack. Migrates the Stage -1 H1–H6 register into an open
+  Scientific Claims configuration without changing Visakhapatnam scientific meaning.
+
+scientific_questions:
+  Q1:
+    text: "Is the dataset scientifically trustworthy for coastal water-quality inference?"
+    tested_by: [stage_01, stage_02]
+  Q2:
+    text: "Are multiparameter sonde measurements physically plausible?"
+    tested_by: [stage_02, stage_03]
+  Q3:
+    text: "Which variables contain unique (non-redundant) environmental information?"
+    tested_by: [stage_05]
+  Q4:
+    text: "Does the coastline naturally organize into environmental regimes?"
+    tested_by: [stage_06, stage_07]
+  Q5:
+    text: "What physical mechanisms define discovered regimes?"
+    tested_by: [stage_08, stage_12]
+  Q6:
+    text: "Which observations represent genuine environmental anomalies?"
+    tested_by: [stage_09]
+  Q7:
+    text: "Can anomalies be independently validated with external environmental drivers?"
+    tested_by: [stage_10]
+  Q8:
+    text: "What knowledge translates into monitoring policy?"
+    tested_by: [stage_13]
+  Q9:
+    text: "Are conclusions statistically, physically, and environmentally defensible?"
+    tested_by: [stage_14]
+
+# Ordered claim list. claim_id values are frozen artifact keys (do not rename).
+claims:
+  - claim_id: H1_data_trustworthiness
+    title: Data trustworthiness
+    description: "After transparent QA/QC, the record supports scientific inference."
+    null_hypothesis: "Critical QA issues dominate the record; inference is not supported."
+    alternative_hypothesis: "After transparent QA/QC, the record supports scientific inference."
+    validator: cieml.evidence.h1_data_trust:H1Validator
+    linked_questions: [Q1]
+    accept_if:
+      - "critical_issue_rate < 0.05 of station-day files"
+      - "core_variables present at all stations"
+      - "no unresolvable unit contradictions"
+    reject_if:
+      - "majority of files flagged Critical without remediation path"
+    applicability:
+      note: "Filled in detail by Phase K Applicability Domain Engine."
+
+  - claim_id: H2_physical_coherence
+    title: Physical coherence
+    description: "Expected coastal oceanographic relationships hold within literature-based tolerance."
+    null_hypothesis: "Key oceanographic relationships are broken."
+    alternative_hypothesis: "Expected coastal relationships hold within literature-based tolerance."
+    validator: cieml.evidence.h2_physical_coherence:H2Validator
+    linked_questions: [Q2, Q3]
+    expected_mechanisms:
+      - "Salinity positively associated with conductivity / specific conductance / TDS"
+      - "DO concentration inversely associated with temperature"
+      - "DO percent saturation associated with DO concentration"
+      - "Turbidity associated with TSS when both measured"
+    accept_if:
+      - "majority of expected pairs show correct sign and |r| above data-driven threshold"
+
+  - claim_id: H3_information_redundancy
+    title: Information redundancy
+    description: "A subset of measured variables is redundant; a reduced feature set retains environmental structure."
+    null_hypothesis: "All measured variables are informationally unique."
+    alternative_hypothesis: "A subset is redundant; a reduced feature set retains environmental structure."
+    validator: cieml.evidence.h3_feature_redundancy:H3Validator
+    linked_questions: [Q3]
+
+  - claim_id: H4_environmental_regimes
+    title: Environmental regimes
+    description: "Stable multi-station environmental regimes exist under multi-algorithm consensus."
+    null_hypothesis: "No stable multi-station structure beyond noise."
+    alternative_hypothesis: "Stable regimes exist under multi-algorithm consensus."
+    validator: cieml.evidence.h4_environmental_regimes:H4Validator
+    linked_questions: [Q4, Q5]
+
+  - claim_id: H5_anomaly_reality
+    title: Anomaly reality
+    description: "A subset of detected anomalies is environmentally consistent with external drivers."
+    null_hypothesis: "Detected anomalies are sensor artifacts only."
+    alternative_hypothesis: "A subset of anomalies is environmentally consistent with external drivers."
+    validator: cieml.evidence.h5_anomalies:H5Validator
+    linked_questions: [Q6, Q7]
+
+  - claim_id: H6_policy_transfer
+    title: Policy transferability
+    description: "Monitoring recommendations transfer as stated rules with explicit limits."
+    null_hypothesis: "Findings are site-specific and not transferable."
+    alternative_hypothesis: "Monitoring recommendations are transferable rules with stated limits."
+    validator: cieml.evidence.h6_policy_transfer:H6Validator
+    linked_questions: [Q8, Q9]
+
+four_pillars:
+  - statistical_significance
+  - practical_significance
+  - physical_plausibility
+  - environmental_interpretability
+
+classification_rule: >
+  DEFINITIVE only if all four pillars pass; PROVISIONAL if evidence is mixed with
+  no outright failures; otherwise EXPLORATORY (see Stage 14 / cieml.evidence.scoring
+  for the implemented weakest-pillar tiering).
+
+assumptions_to_test_not_assume:
+  - exclusion_windows
+  - cluster_count_K
+  - dominant_variables
+  - rainfall_effects
+  - anomaly_dates
+  - site_specific_thresholds

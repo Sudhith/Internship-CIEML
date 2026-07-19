@@ -1,0 +1,21 @@
+# Domain profile schema (Phase B). Profiles under configs/domains/<name>.yaml
+# must supply these keys. Analytical engines read DomainProfile via cieml.domain.
+
+required_keys:
+  - domain
+  - version
+  - core_variables
+  - plausibility_ranges
+  - relationships
+  - qa
+  - physical_equivalence_groups
+  - process_categories
+
+optional_keys:
+  - decision_keywords
+  - regime_families
+  - sensor_packs
+  - applicability_notes
+  - variable_synonyms
+  - evidence_reliability  # SC-REL coverage targets/weights; see cieml.uncertainty.reliability
+  - ceam  # SC-CEAM thresholds/titles/variable_keys/station-role vocab; see cieml.ceam.context

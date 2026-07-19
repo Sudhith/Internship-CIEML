@@ -1,0 +1,17 @@
+{
+  "proposal_id": "domain_note_coastal_visakhapatnam_may2026",
+  "target_domain": "coastal",
+  "action": "append_applicability_note",
+  "suggested_note": "Campaign visakhapatnam_may2026 contributed candidate claim/applicability memory; curator may promote supported patterns after multi-campaign review.",
+  "requires_human_review": true,
+  "auto_applied": false,
+  "provenance": {
+    "campaign_id": "visakhapatnam_may2026",
+    "kb_entries": [
+      "C:\\Users\\raomo\\Desktop\\PAPER 1\\knowledge_base\\entries\\claims_visakhapatnam_may2026.json",
+      "C:\\Users\\raomo\\Desktop\\PAPER 1\\knowledge_base\\entries\\applicability_visakhapatnam_may2026.json",
+      "C:\\Users\\raomo\\Desktop\\PAPER 1\\knowledge_base\\entries\\physical_support_visakhapatnam_may2026.json"
+    ]
+  },
+  "status": "pending_review"
+}

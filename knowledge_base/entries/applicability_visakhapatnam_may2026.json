@@ -1,0 +1,32 @@
+{
+  "entry_id": "applicability_visakhapatnam_may2026",
+  "kind": "applicability_summary",
+  "grade": "candidate",
+  "campaign_id": "visakhapatnam_may2026",
+  "domain": "coastal",
+  "payload": {
+    "applies_to": [
+      "Multiparameter sonde campaigns in the 'coastal' domain profile with role-diverse stations (harbour/embayment + open-coast when relevant).",
+      "Decision support for monitoring *design* \u2014 not real-time regulatory compliance enforcement.",
+      "Multiparameter sonde campaigns with salinity/conductivity and DO/pH coverage.",
+      "Screening bands are not regulatory limits and are not site cutoffs.",
+      "Campaign designs with comparable station count scale (this campaign n_stations=6)."
+    ],
+    "does_not_apply_to": [
+      "Universal numeric thresholds transplanted to other sites without re-running CIEML stages.",
+      "Sites lacking the domain core variable set required for physical/QA engines.",
+      "Causal attribution of pollution sources without independent tracers and Stage 10+ evidence.",
+      "Satellite-only or tide-gauge-only networks without in situ sondes.",
+      "Unobserved habitats / seasons / forcing regimes (unknown transfer \u2260 safe transfer)."
+    ],
+    "transfer_rule": "Re-run CIEML Stages 4\u20139 (features through anomalies) on the new campaign; reuse framework logic and domain profile, not site-specific numeric cutoffs or regime names.",
+    "n_claim_records": 6
+  },
+  "provenance": {
+    "campaign_id": "visakhapatnam_may2026",
+    "artifacts": [
+      "stage13_applicability_domain.json"
+    ]
+  },
+  "version": 1
+}

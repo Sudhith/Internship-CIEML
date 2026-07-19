@@ -1,0 +1,12 @@
+# DEPRECATED (Phase J) — compatibility shim.
+# Source of truth is now the claim pack:
+#   configs/claims/coastal_monitoring_v1.yaml
+#
+# Stage -1 loads the claim pack via cieml.claims.load_claim_pack.
+# This file remains so older docs/scripts that mention hypotheses.yaml still resolve.
+# Do not add new claims here; edit the claim pack (and optional validator plugin).
+
+deprecated: true
+redirect: configs/claims/coastal_monitoring_v1.yaml
+note: >
+  H1–H6 content migrated to coastal_monitoring_v1 claim pack. Pillar ABC unchanged.

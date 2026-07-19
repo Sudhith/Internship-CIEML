@@ -1,0 +1,14 @@
+{
+  "campaign_closure": "MIXED_PROVISIONAL",
+  "claim_pack_id": "coastal_monitoring_v1",
+  "classifications": {
+    "H1_data_trustworthiness": "EXPLORATORY",
+    "H2_physical_coherence": "EXPLORATORY",
+    "H3_information_redundancy": "PROVISIONAL",
+    "H4_environmental_regimes": "EXPLORATORY",
+    "H5_anomaly_reality": "EXPLORATORY",
+    "H6_policy_transfer": "PROVISIONAL"
+  },
+  "source": "outputs/phase8/stage14_four_pillar_closure.json",
+  "note": "Frozen for Framework Validation regression; update only via waiver."
+}

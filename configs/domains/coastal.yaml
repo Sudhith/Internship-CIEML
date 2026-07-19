@@ -1,0 +1,195 @@
+# Coastal / open-coast + harbour multiparameter sonde domain profile (Phase B).
+# Screening priors — not site-specific decision thresholds.
+domain: coastal
+version: "1.0.0"
+title: Coastal multiparameter water quality
+description: >
+  Literature-informed coastal/estuarine sonde operating envelopes and expected
+  ionic / oxygen / optical relationships for CIEML engines.
+
+core_variables:
+  - temperature_c
+  - salinity_psu
+  - ph
+  - do_mg_l
+  - do_sat_pct
+  - turbidity_fnu
+  - conductivity_us_cm
+  - spcond_us_cm
+  - tds_mg_l
+
+plausibility_ranges:
+  # [lo, hi] inclusive screening bands
+  temperature_c: [0.0, 40.0]
+  salinity_psu: [0.0, 45.0]
+  ph: [6.0, 9.5]
+  do_mg_l: [0.0, 20.0]
+  do_sat_pct: [0.0, 200.0]
+  turbidity_fnu: [0.0, 4000.0]
+  conductivity_us_cm: [0.0, 80000.0]
+  tds_mg_l: [0.0, 50000.0]
+  barometer_mmhg: [650.0, 850.0]
+
+relationships:
+  - id: sal_cond
+    x: salinity_psu
+    y: conductivity_us_cm
+    expected_sign: "+"
+    mechanism: Ionic strength increases bulk conductivity.
+    applicable_domains: [coastal, estuary, harbour]
+    optional: false
+  - id: sal_spcond
+    x: salinity_psu
+    y: spcond_us_cm
+    expected_sign: "+"
+    mechanism: Specific conductance tracks salinity after temperature normalization.
+    applicable_domains: [coastal, estuary, harbour]
+    optional: false
+  - id: sal_tds
+    x: salinity_psu
+    y: tds_mg_l
+    expected_sign: "+"
+    mechanism: TDS scales with dissolved ionic content / salinity.
+    applicable_domains: [coastal, estuary, harbour]
+    optional: false
+  - id: cond_spcond
+    x: conductivity_us_cm
+    y: spcond_us_cm
+    expected_sign: "+"
+    mechanism: Specific conductance is temperature-compensated conductivity.
+    applicable_domains: [coastal, estuary, harbour]
+    optional: false
+  - id: temp_do
+    x: temperature_c
+    y: do_mg_l
+    expected_sign: "-"
+    mechanism: Oxygen solubility decreases as temperature increases.
+    applicable_domains: [coastal, estuary, harbour, river, lake, reservoir, aquaculture]
+    optional: false
+  - id: do_dosat
+    x: do_mg_l
+    y: do_sat_pct
+    expected_sign: "+"
+    mechanism: Saturation percent is derived from / tightly coupled to DO concentration.
+    applicable_domains: [coastal, estuary, harbour, river, lake, reservoir, aquaculture]
+    optional: false
+  - id: turb_tss
+    x: turbidity_fnu
+    y: tss_mg_l
+    expected_sign: "+"
+    mechanism: Optical turbidity rises with suspended solids when TSS is measured.
+    applicable_domains: [coastal, estuary, harbour, river, lake]
+    optional: true
+  - id: temp_ph
+    x: temperature_c
+    y: ph
+    expected_sign: either
+    mechanism: pH–T coupling is context-dependent (biology, CO2, mixing); sign not forced.
+    applicable_domains: [coastal, estuary, harbour, river, lake]
+    optional: true
+
+qa:
+  enabled_checks:
+    - range_magnitude_overshoot
+  range_magnitude_overshoot:
+    critical_overshoot_ratio: 2.0
+    suspicious_frac_out: 0.01
+    elevated_frac_out: 0.05
+  missingness:
+    suspicious_frac: 0.05
+    critical_frac: 0.20
+  non_negative_variables:
+    - salinity_psu
+    - do_mg_l
+    - do_sat_pct
+    - turbidity_fnu
+    - tds_mg_l
+    - conductivity_us_cm
+    - spcond_us_cm
+    - tss_mg_l
+
+physical_equivalence_groups:
+  - [salinity_psu, spcond_us_cm, conductivity_us_cm, tds_mg_l, nlf_cond_us_cm]
+  - [do_mg_l, do_sat_pct]
+
+process_categories:
+  thermal: [temperature_c]
+  oxygen: [do_mg_l, do_sat_pct, do_solubility, do_sat_gap]
+  salinity_ionic: [salinity_psu, spcond_us_cm, conductivity_us_cm, tds_mg_l, mixing_contrast]
+  turbidity: [turbidity_fnu, mixing_contrast]
+  ph_carbonate: [ph, carbonate_thermal]
+
+decision_keywords:
+  harbour_hypoxia: [harbour, hypox, do, oxygen, ph]
+  turbid_open_coast: [turbid, salinity, freshwater, sediment, rainfall]
+
+regime_families:
+  - high_energy_coastal_regime
+  - harbour_regime
+  - freshwater_influenced_regime
+  - sediment_resuspension_regime
+  - hypoxic_regime
+  - mixed_transitional_regime
+  - offshore_marine_regime
+
+applicability_notes:
+  - Multiparameter sonde campaigns with salinity/conductivity and DO/pH coverage.
+  - Screening bands are not regulatory limits and are not site cutoffs.
+
+# Evidence Reliability Engine (SC-REL) coverage targets — Sec 7/8 of the
+# uncertainty v2 redesign. These are literature-informed monitoring-design
+# targets for what counts as regionally representative coastal coverage, not
+# numbers fit to make any particular campaign look complete. A campaign
+# scoring below target on a dimension is not disqualified — it is reported
+# honestly as partial evidence reliability on that dimension.
+evidence_reliability:
+  targets:
+    spatial_stations: 8       # coastal water-quality network guidance: multiple open-coast + embayment stations
+    temporal_seasons: 4       # full annual cycle (wet/dry/inter-monsoon phases for a monsoon-influenced coast)
+    methodological_methods: 3 # independent explanation/validation methods (SHAP, permutation, native importance, ...)
+    external_sources: 2       # independent external corroboration sources (regional meteo + at least one more: tide/hydrology/satellite)
+  weights:
+    spatial: 1.0
+    temporal: 1.0
+    methodological: 1.0
+    external: 1.0
+
+# Coastal Environmental Analysis Module (Stage 12 / CEAM) priors.
+# Screening z-score gates for fingerprint interpretation — not regulatory limits.
+ceam:
+  harbour_station_roles: [harbour_embayment, restricted_flushing]
+  open_coast_roles: [open_coast, ambient_reference, exposed_coastal]
+  titles:
+    high_energy_coastal_regime: "High-energy / turbid open-coast regime"
+    harbour_regime: "Harbour-associated regime"
+    freshwater_influenced_regime: "Freshwater-influenced coastal regime"
+    sediment_resuspension_regime: "Sediment resuspension / turbid regime"
+    hypoxic_regime: "Low-oxygen (hypoxia-risk) regime"
+    mixed_transitional_regime: "Mixed / ambient coastal regime"
+    offshore_marine_regime: "Higher-salinity / marine-influenced regime"
+    insufficient_evidence_for_named_regime: "Unnamed multivariate state"
+  thresholds:
+    harbour_membership_strong: 0.70
+    harbour_membership_partial: 0.30
+    do_depressed_strong: -1.5
+    do_depressed_mod: -0.8
+    salinity_fresh_strong: -1.0
+    salinity_fresh_mod: -0.5
+    salinity_marine_strong: 0.8
+    turbidity_elevated_strong: 1.0
+    turbidity_elevated_mod: 0.5
+    turbidity_open_coast: 0.8
+    ph_depressed_strong: -1.5
+    ambient_mean_abs_z: 0.45
+    ambient_min_n: 50
+    ambient_loose_mean_abs_z: 0.7
+    min_family_score: 2.0
+    supported_family_score: 3.5
+    meteo_event_p_max: 0.05
+  variable_keys:
+    do: do_mg_l__mean
+    ph: ph__mean
+    salinity: salinity_psu__mean
+    turbidity: turbidity_fnu__mean
+    temperature: temperature_c__mean
+    conductivity: spcond_us_cm__mean

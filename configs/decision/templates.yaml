@@ -1,0 +1,36 @@
+# Role-based DSS templates — no site names (Phase K).
+version: "1.0.0"
+
+station_roles:
+  harbour_embayment: "Harbour / embayment station (role: restricted-flushing)"
+  open_coast: "Open-coast station (role: exposed coastal)"
+  ambient_reference: "Persistently ambient open-coast reference (role: ambient_reference)"
+
+decision_rules:
+  - id: R1
+    if: "Station is harbour-type AND DO z << 0 AND pH z << 0"
+    then: "Treat as harbour low-oxygen watch; prioritize DO/pH sensors and flushing assessment."
+  - id: R2
+    if: "Open-coast station AND turbidity elevated AND salinity depressed"
+    then: "Treat as freshwater/turbid event; check same-day/lag-1 rainfall (Stage 10)."
+  - id: R3
+    if: "Consensus anomaly without meteo match"
+    then: "Prefer sensor-QA review before management action (Stage 2 flags + Stage 9 catalog)."
+  - id: R4
+    if: "Budget reduction required"
+    then: "Keep Dominant+Secondary measurands; demote Negligible / redundant conductivity family first."
+
+spatial_design:
+  - "Always include at least one harbour/embayment role and multiple open-coast roles — regimes are spatially structured."
+  - "Designate at least one persistently ambient open-coast station as ambient_reference for event contrast."
+
+adaptive_triggers:
+  - "Elevate to daily/harbour-intensified sampling when Stage 9 consensus anomalies recur ≥2 consecutive days at one station."
+  - "Add post-rainfall event casts when regional precip exceeds campaign upper-quartile (Stage 10)."
+  - "Do not drop Dominant SHAP sensors even under budget cuts."
+
+baseline_frequency: >
+  Daily short casts at fixed stations during intensive campaigns; weekly-to-biweekly
+  for operational surveillance if resources limited.
+
+default_minimum_sensors: [DO, pH, Salinity, Turbidity, Temperature]

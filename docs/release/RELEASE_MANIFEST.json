@@ -1,0 +1,647 @@
+{
+  "generated_at": "2026-07-19T13:10:03.538947+00:00",
+  "framework_version": "2.0.0-rc1",
+  "redesign_phase": "K",
+  "artifact_contract_version": "1",
+  "scientific_contracts_version": "1.0.0",
+  "git": {
+    "commit": "dfde46a6f69c0c9fc8e84e84e938935db0101b18",
+    "commit_short": "dfde46a",
+    "branch": "master",
+    "dirty": true
+  },
+  "python_version": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+  "dependencies": {
+    "numpy": "2.2.3",
+    "pandas": "2.2.3",
+    "scipy": "1.17.0",
+    "scikit-learn": "1.8.0",
+    "matplotlib": "3.10.8",
+    "seaborn": "0.13.2",
+    "PyYAML": "6.0.3",
+    "openpyxl": "3.1.5",
+    "statsmodels": "0.14.6",
+    "tqdm": "4.67.1",
+    "shap": "0.49.1",
+    "xgboost": "3.1.3",
+    "lightgbm": "4.6.0",
+    "requests": "2.32.5",
+    "hdbscan": null
+  },
+  "config_versions": {
+    "configs/framework.yaml": {
+      "exists": true,
+      "version": "2.0.0-rc1",
+      "sha256": "c3c39b6f106777a7994949783be3dfbbf4dd7618e9e708e87ba35d38b5c0c473"
+    },
+    "configs/domains/coastal.yaml": {
+      "exists": true,
+      "version": "1.0.0",
+      "sha256": "131964baf4f9586cb0afdf75f5cf8bb1b6bb51ff641fc2db54d92b29d16e0e62"
+    },
+    "configs/domains/_schema.yaml": {
+      "exists": true,
+      "version": null,
+      "sha256": "e7f78c240032706892dba8810d7c11287cdbe2ff150a8737f8d75db0c83a52a0"
+    },
+    "configs/claims/coastal_monitoring_v1.yaml": {
+      "exists": true,
+      "version": "1.0.0",
+      "sha256": "1c9a8f1e678d2bdb38d48810768a59370a548114ba5d764eb4e9b9a86217e161"
+    },
+    "configs/failure/catalog.yaml": {
+      "exists": true,
+      "version": "1.0.0",
+      "sha256": "0a1cdcf6be7540d0a59d46e675a757d8a16f54e07b70f1201bb6d3d5e4a27f7a"
+    },
+    "configs/validation/suite.yaml": {
+      "exists": true,
+      "version": "1.0.0",
+      "sha256": "c373631c6086a114431feff409a6dd56ddd499a6d458375e2b047045d37adc00"
+    },
+    "configs/campaigns/visakhapatnam_may2026.yaml": {
+      "exists": true,
+      "version": null,
+      "sha256": "c6c66f487d58da60f0779c8a1af6550a9f57f26e86b93a9162cc5dce6951236f"
+    }
+  },
+  "module_inventory": [
+    {
+      "path": "cieml/__init__.py",
+      "sha256": "b9a3d1b8814e624dd2c502002e8008fc93f0acd4d2b3a080d002ded6877564ff",
+      "size_bytes": 135,
+      "lines": 4
+    },
+    {
+      "path": "cieml/anomalies/__init__.py",
+      "sha256": "aed873c1bbcae0ccad127bd4c2abdf228082ede76c73cfbbf1c1c062d246c78d",
+      "size_bytes": 192,
+      "lines": 6
+    },
+    {
+      "path": "cieml/anomalies/origin.py",
+      "sha256": "67e95299eb5530866f90f84fe1aee9b5640f8fa3ad989c6232e2163508da206e",
+      "size_bytes": 3742,
+      "lines": 105
+    },
+    {
+      "path": "cieml/applicability/__init__.py",
+      "sha256": "86834d7fcb9800908aade7d961ab1c9abd0a58b150e38137e629d1d13e57121b",
+      "size_bytes": 240,
+      "lines": 6
+    },
+    {
+      "path": "cieml/applicability/engine.py",
+      "sha256": "b2cf256673885c333f1223d2ede3d6e79029118e372ea029417455212175a8c2",
+      "size_bytes": 4987,
+      "lines": 119
+    },
+    {
+      "path": "cieml/claims/__init__.py",
+      "sha256": "ee786b637d8f22060663099adbaf7b4278aac8ebd29ae791d2471d4a5b891eca",
+      "size_bytes": 700,
+      "lines": 20
+    },
+    {
+      "path": "cieml/claims/loader.py",
+      "sha256": "d9e8ca79c7fa63626c54343ed16cc8fc9acdc050276235fff57883533fbf0879",
+      "size_bytes": 3502,
+      "lines": 91
+    },
+    {
+      "path": "cieml/claims/registry.py",
+      "sha256": "620105fe17f6fc6c039d3db02a6a291f3be881db650ac698ea4cf25c7b05983b",
+      "size_bytes": 2427,
+      "lines": 56
+    },
+    {
+      "path": "cieml/claims/schema.py",
+      "sha256": "cfd170fd4d905dba4080abc5a52a61656f3e2a7aa2cd4c47c308177b64cd136f",
+      "size_bytes": 3123,
+      "lines": 75
+    },
+    {
+      "path": "cieml/config.py",
+      "sha256": "730a69adea8a48913c40e8ea74fb1833146efd9480c0f0c2d11d4eeb7e58dff0",
+      "size_bytes": 2721,
+      "lines": 78
+    },
+    {
+      "path": "cieml/decision/__init__.py",
+      "sha256": "0b515a79f3b17a5bc26dca24cc130d8c5c1ed9f941c545db1650b334ef6c56c5",
+      "size_bytes": 258,
+      "lines": 7
+    },
+    {
+      "path": "cieml/decision/engine.py",
+      "sha256": "fa8a4d08d8a1f04d31f086ffb0023c00b77e3a832c53f40bd3754798acf64aa9",
+      "size_bytes": 10513,
+      "lines": 226
+    },
+    {
+      "path": "cieml/decision/gate.py",
+      "sha256": "69a22d502499c30c7fff5ee8812307a41cf8a6759fd2723dfe315acb905f9b27",
+      "size_bytes": 1687,
+      "lines": 40
+    },
+    {
+      "path": "cieml/decision/templates.py",
+      "sha256": "04d36ab9e480276bdb7b0a948d6184c34c44a69f94a4d1f9a118fcb3bd30a1ea",
+      "size_bytes": 678,
+      "lines": 24
+    },
+    {
+      "path": "cieml/discovery/__init__.py",
+      "sha256": "ab33b2df1fd22aec5786f0f5c7c980d96fcf67ea0e8bcce54f9b23985dbfd5bb",
+      "size_bytes": 387,
+      "lines": 10
+    },
+    {
+      "path": "cieml/discovery/api.py",
+      "sha256": "6e631bc5161c774807d612e67eca713555b0275e0c44d672728c6dfe861ec7e0",
+      "size_bytes": 1599,
+      "lines": 47
+    },
+    {
+      "path": "cieml/domain/__init__.py",
+      "sha256": "0f3d0c927ec3082c685806e9d3f14f9c822348613e4a201a1cb9014bf3ee67c4",
+      "size_bytes": 268,
+      "lines": 6
+    },
+    {
+      "path": "cieml/domain/loader.py",
+      "sha256": "d7db06412682de99e0e14e3c599e19e7361084e5fcc0f5b3dd44ba57465588c9",
+      "size_bytes": 7384,
+      "lines": 186
+    },
+    {
+      "path": "cieml/evidence/__init__.py",
+      "sha256": "6800abde25afd5b2b33519b1c8c927f6148a63f136c813909e15c3ffe64e3729",
+      "size_bytes": 421,
+      "lines": 8
+    },
+    {
+      "path": "cieml/evidence/artifacts.py",
+      "sha256": "2f5a7cffee3da898fe9ed1358c8a2a16802f20ae5d5ec967857a82f0243f7077",
+      "size_bytes": 4043,
+      "lines": 77
+    },
+    {
+      "path": "cieml/evidence/base.py",
+      "sha256": "3c7768ded516a8feb27de8b9ec82039eac24e4fa444cc439b832b941fe73aa05",
+      "size_bytes": 7271,
+      "lines": 181
+    },
+    {
+      "path": "cieml/evidence/engine.py",
+      "sha256": "b59b2cd16619b5e28e941d1297d4eaac8459a08a0173b587360b335bf4d2558f",
+      "size_bytes": 5109,
+      "lines": 130
+    },
+    {
+      "path": "cieml/evidence/h1_data_trust.py",
+      "sha256": "05b5a8403e18ee80f1893e4fe5b96a7fadf00155594fc41d8d13b13ef0759e51",
+      "size_bytes": 8323,
+      "lines": 158
+    },
+    {
+      "path": "cieml/evidence/h2_physical_coherence.py",
+      "sha256": "7f574d11a1da6689d05d77e43b59c03ce98bb2df0f890e33bea28c69e048a768",
+      "size_bytes": 6874,
+      "lines": 133
+    },
+    {
+      "path": "cieml/evidence/h3_feature_redundancy.py",
+      "sha256": "bf42f3bc715ea6cefeab1151642eb71f123f14c6a0010f9a01602df6b9690f9c",
+      "size_bytes": 9526,
+      "lines": 181
+    },
+    {
+      "path": "cieml/evidence/h4_environmental_regimes.py",
+      "sha256": "48f33a03bc54a6dba3c88e188e2e1b713c61aee04c8f2a3fb28f185615a03a6c",
+      "size_bytes": 9109,
+      "lines": 151
+    },
+    {
+      "path": "cieml/evidence/h5_anomalies.py",
+      "sha256": "a4ec642fe7ef20e4c014c184f6bf4ecc1eccc5c1ad2ba055bc71572d342722de",
+      "size_bytes": 6874,
+      "lines": 122
+    },
+    {
+      "path": "cieml/evidence/h6_policy_transfer.py",
+      "sha256": "4d143b8d7860c598c25124b8b3faafcb2406e564480c24e1d8343be61d1d16f6",
+      "size_bytes": 8776,
+      "lines": 158
+    },
+    {
+      "path": "cieml/evidence/loaders.py",
+      "sha256": "a106cf306ab00ab000abfe5d175e48c088dbeaeb0fdbd87ecae0bcf6772c9c95",
+      "size_bytes": 2853,
+      "lines": 83
+    },
+    {
+      "path": "cieml/evidence/scoring.py",
+      "sha256": "6d8249173ae59854b9e6714fa7d8ab46c2f7a5a2a1e1ec279c713a68dab2518d",
+      "size_bytes": 3494,
+      "lines": 86
+    },
+    {
+      "path": "cieml/evidence/visualize.py",
+      "sha256": "5c25cca2223b9a32b917ed7f8a18e1f43468f082e7885a2a8ee5fa6d8de3dccd",
+      "size_bytes": 9083,
+      "lines": 218
+    },
+    {
+      "path": "cieml/explain/__init__.py",
+      "sha256": "f9e273e6c49c2883cfab1e3ce627ef35493004e99e1c6cce25d01ee984e717ae",
+      "size_bytes": 191,
+      "lines": 6
+    },
+    {
+      "path": "cieml/explain/consensus.py",
+      "sha256": "6afd8c80900125c6c9f1ab9af316e7bbbec3619099b73e552e460daac086605c",
+      "size_bytes": 4515,
+      "lines": 106
+    },
+    {
+      "path": "cieml/failure/__init__.py",
+      "sha256": "86914b3d1248b54a24d4e0b65e4d601c234281fa5e9d291c28a92de66c915c16",
+      "size_bytes": 574,
+      "lines": 18
+    },
+    {
+      "path": "cieml/failure/assess.py",
+      "sha256": "6e9513d8419d607087ee5d1645adeede9b0a3d07e1172a1f49e3d676cc0164ea",
+      "size_bytes": 4236,
+      "lines": 116
+    },
+    {
+      "path": "cieml/failure/catalog.py",
+      "sha256": "4d5d878b7a9c5f0db74d53ecfa1dad610fce115bfee3f06797af3aff3dbf2794",
+      "size_bytes": 1862,
+      "lines": 64
+    },
+    {
+      "path": "cieml/failure/detect.py",
+      "sha256": "5913f238b52efc9f8e53f8645f9de761dce551905818c1a8e67504b621262c90",
+      "size_bytes": 6169,
+      "lines": 160
+    },
+    {
+      "path": "cieml/failure/models.py",
+      "sha256": "6ae33b718363f99d275d7002e2419f56adde0a03848286c40bea90d2ca2062e8",
+      "size_bytes": 1317,
+      "lines": 51
+    },
+    {
+      "path": "cieml/failure/report.py",
+      "sha256": "7a1befb1f10396d6cdf95cf18be334025c15d3de41a9553db186888d58447338",
+      "size_bytes": 3625,
+      "lines": 75
+    },
+    {
+      "path": "cieml/ingestion/__init__.py",
+      "sha256": "f3ef8eaa443f486ba6b16c7bf526a3bb3fe8cc33d275e6e7a5e2452222e8a189",
+      "size_bytes": 302,
+      "lines": 7
+    },
+    {
+      "path": "cieml/ingestion/registry.py",
+      "sha256": "d5c9c77006fa421b2b5731e4980b9f09b69b4554b11ed19fd6141e7a65dddaf9",
+      "size_bytes": 1436,
+      "lines": 36
+    },
+    {
+      "path": "cieml/ingestion/schema.py",
+      "sha256": "c52f9b882b791aed3778ec04a98630d3462401b785de9071160df9d1ff7cac74",
+      "size_bytes": 844,
+      "lines": 20
+    },
+    {
+      "path": "cieml/knowledge/__init__.py",
+      "sha256": "73b8a5037b046b08d8caff190fd68ae54240f8d71f36f4f014fe1b0c101e7666",
+      "size_bytes": 298,
+      "lines": 7
+    },
+    {
+      "path": "cieml/knowledge/propose.py",
+      "sha256": "db05d757a86c25ddc0767c986e9364ab617e4c4160e0e4dd9b8f4159b43c73ea",
+      "size_bytes": 4560,
+      "lines": 126
+    },
+    {
+      "path": "cieml/knowledge/store.py",
+      "sha256": "19561351a375860dcf93355b8eefcb41145963078353916818aad1cdb7228fcd",
+      "size_bytes": 4627,
+      "lines": 117
+    },
+    {
+      "path": "cieml/physics/__init__.py",
+      "sha256": "dc45b79579127fd6e2699ce60d422c789d983fe022bc358e2e3f79ae35f1e579",
+      "size_bytes": 203,
+      "lines": 6
+    },
+    {
+      "path": "cieml/physics/engine.py",
+      "sha256": "dc33f277b01e14bd4b07403e04cfb5ddf0a5c2fce8a0bc012b146b2a6960f2a3",
+      "size_bytes": 4156,
+      "lines": 104
+    },
+    {
+      "path": "cieml/pipeline.py",
+      "sha256": "ed8b6dfb24681cd0dda5c806a84e9cd213820f1a77c42d30fbaf31286e15e382",
+      "size_bytes": 30167,
+      "lines": 743
+    },
+    {
+      "path": "cieml/qa/__init__.py",
+      "sha256": "1323d0f70ee84cf4ea2caec4990f3e581bb5aff97fa021880bff0f3aa6229f28",
+      "size_bytes": 245,
+      "lines": 7
+    },
+    {
+      "path": "cieml/qa/checks/__init__.py",
+      "sha256": "a7fe2012ad5aff90cb51ad4a61a99858bec97890f639061fa72572684e780e04",
+      "size_bytes": 28,
+      "lines": 1
+    },
+    {
+      "path": "cieml/qa/checks/range_magnitude_overshoot.py",
+      "sha256": "8802c625d2931323cd191c588dd5d286251e3a10f8a990628e4fcc46a8e42d4b",
+      "size_bytes": 4252,
+      "lines": 122
+    },
+    {
+      "path": "cieml/qa/engine.py",
+      "sha256": "de7e8f0cb545da69ed8d947fc22828180e9227e4c3ebb2067affd5c8bc0dd591",
+      "size_bytes": 1085,
+      "lines": 34
+    },
+    {
+      "path": "cieml/qa/registry.py",
+      "sha256": "30d2363729b50294c7948c203402009086fca1742650d3403c31e316ede07167",
+      "size_bytes": 665,
+      "lines": 26
+    },
+    {
+      "path": "cieml/reporting/__init__.py",
+      "sha256": "ba3a6b6d378629b68808fe9fc81105be5636a834f034e41113ce138e97f34339",
+      "size_bytes": 25,
+      "lines": 1
+    },
+    {
+      "path": "cieml/reporting/phase1_summary.py",
+      "sha256": "737114cd12b5defff46f2ace1f685c3ac5b35ae61c5a8f17f55fd6d03f10cf39",
+      "size_bytes": 2139,
+      "lines": 52
+    },
+    {
+      "path": "cieml/reporting/phase2_summary.py",
+      "sha256": "d69152012e3fc13f1acb4705ad238f1a05789e55c0aeebe63912c976353d69fd",
+      "size_bytes": 2116,
+      "lines": 46
+    },
+    {
+      "path": "cieml/reporting/phase3_summary.py",
+      "sha256": "d87531fc06d1221a9f4f0862601ac5cc23a75d37668eb53e9e5b754ee94f004c",
+      "size_bytes": 2030,
+      "lines": 43
+    },
+    {
+      "path": "cieml/reporting/phase4_summary.py",
+      "sha256": "ab4b1cf87535e54478803360dc6c93605ed81876f84953a0738c1aefe07a1aca",
+      "size_bytes": 2087,
+      "lines": 46
+    },
+    {
+      "path": "cieml/reporting/phase5_summary.py",
+      "sha256": "f86f1f79a2201b45531ff2cab7babc0494d5ded1c59a26bf0b4f902a16c1cad7",
+      "size_bytes": 1909,
+      "lines": 40
+    },
+    {
+      "path": "cieml/reporting/phase6_summary.py",
+      "sha256": "d2c6a7fc5fa9b1800db26673124e51a5075b74a6c9e4a9ee7441f542844d72b2",
+      "size_bytes": 2048,
+      "lines": 42
+    },
+    {
+      "path": "cieml/reporting/phase7_summary.py",
+      "sha256": "d51a9247e2ff1a5f8b186b11004af4ce7a83d0d2c78d7a36b0658084cf80ae27",
+      "size_bytes": 1542,
+      "lines": 40
+    },
+    {
+      "path": "cieml/reporting/phase8_summary.py",
+      "sha256": "517427c5f69af08055ea5dbac2544c490788317c5db9085eb74015e65903a7eb",
+      "size_bytes": 2108,
+      "lines": 48
+    },
+    {
+      "path": "cieml/stages/__init__.py",
+      "sha256": "f773da77cd932eb67c0863a6c0f798a259ab31a4f00f319eb74fbb37cc9f37c7",
+      "size_bytes": 35,
+      "lines": 1
+    },
+    {
+      "path": "cieml/stages/stage00_ingestion.py",
+      "sha256": "c0d49151a27ac410c23d55f7af83d4e6b8a75fdb85863c7aedb4345150bbd648",
+      "size_bytes": 6032,
+      "lines": 159
+    },
+    {
+      "path": "cieml/stages/stage01_audit.py",
+      "sha256": "dec2b8a97b69118283fe791dedee39c169da981b8ec149c4260ddea2c6285499",
+      "size_bytes": 10379,
+      "lines": 272
+    },
+    {
+      "path": "cieml/stages/stage02_sensor_qa.py",
+      "sha256": "78af0b9800dc31df8c076fd45657086f68f5c647904c311927b22aad8e4c9f25",
+      "size_bytes": 14008,
+      "lines": 325
+    },
+    {
+      "path": "cieml/stages/stage03_physical_validation.py",
+      "sha256": "fddaa4d5b513e31d05e7ba2c5aa8b349a8b8ff2ce6e418a67c38efc7a0f0059c",
+      "size_bytes": 8109,
+      "lines": 197
+    },
+    {
+      "path": "cieml/stages/stage04_feature_engineering.py",
+      "sha256": "d245366953f92f4ebccb5afe5f15ccb1f02ed36ad0004d43cc3f89090905c90b",
+      "size_bytes": 14756,
+      "lines": 316
+    },
+    {
+      "path": "cieml/stages/stage05_statistical_validation.py",
+      "sha256": "771bbfab053a5d86021320f41c075454f42b070ea5d2e544404e5b36e7bcb074",
+      "size_bytes": 17466,
+      "lines": 440
+    },
+    {
+      "path": "cieml/stages/stage06_regime_discovery.py",
+      "sha256": "b3d8c23967086d16ada403602b7599111eba4ac5adea816ac5ea87873b11e747",
+      "size_bytes": 18015,
+      "lines": 433
+    },
+    {
+      "path": "cieml/stages/stage07_regime_validation.py",
+      "sha256": "4bcf0f0637d0b24ea8ef4ff2cabe153b4c76b775bf0fa9863f645667c8c95fea",
+      "size_bytes": 13803,
+      "lines": 337
+    },
+    {
+      "path": "cieml/stages/stage08_explainable_ml.py",
+      "sha256": "69d7a4236941aec89749633f6cf62f635f6e54c9b51a217f114143634f8bb49e",
+      "size_bytes": 17486,
+      "lines": 402
+    },
+    {
+      "path": "cieml/stages/stage09_anomaly_discovery.py",
+      "sha256": "79065c6041c6f4c10de8862ea99947643ba5fb90611205a35d63aa0c10ad8358",
+      "size_bytes": 12949,
+      "lines": 278
+    },
+    {
+      "path": "cieml/stages/stage10_external_validation.py",
+      "sha256": "6b7d1fe320dc7746925ccdf2a9e57d5b6ee1031c54af646b6b261bbe3a14d722",
+      "size_bytes": 20642,
+      "lines": 439
+    },
+    {
+      "path": "cieml/stages/stage11_spatial_temporal.py",
+      "sha256": "adc4568accb0cbef7e0b60c53973e5c44f87601531d0e9834ace56ad11a52922",
+      "size_bytes": 12869,
+      "lines": 302
+    },
+    {
+      "path": "cieml/stages/stage12_ecological_interpretation.py",
+      "sha256": "a5c3daf843d4f06665b22f43f07b4363fa7c91aebf64ab471bc05fa6404373a7",
+      "size_bytes": 11425,
+      "lines": 270
+    },
+    {
+      "path": "cieml/stages/stage13_decision_support.py",
+      "sha256": "2631362263e7959f4f7e12d31361cde4b6871455d40f73560f829eeffe07485f",
+      "size_bytes": 7305,
+      "lines": 179
+    },
+    {
+      "path": "cieml/stages/stage14_robustness.py",
+      "sha256": "50ee2c829712e659516389f9eafbc9f4a08c6834245309d8b655de02920205e1",
+      "size_bytes": 36755,
+      "lines": 809
+    },
+    {
+      "path": "cieml/stages/stage_m1_hypotheses.py",
+      "sha256": "1722d1d4fca23ed3f2a585524785684682ff9d9564e3128bee7a172b1a3c41f4",
+      "size_bytes": 4746,
+      "lines": 121
+    },
+    {
+      "path": "cieml/stats/__init__.py",
+      "sha256": "1029541ed8932e24e77b927f2b25710792f9ad7ef4803e20acf4aa6c0bdcfd66",
+      "size_bytes": 207,
+      "lines": 6
+    },
+    {
+      "path": "cieml/stats/method_selection.py",
+      "sha256": "55130bf8ad6dc38565f4c04d211a722be79f75e3872e46110c796cbbfd7540bc",
+      "size_bytes": 5119,
+      "lines": 123
+    },
+    {
+      "path": "cieml/uncertainty/__init__.py",
+      "sha256": "79c5e6d33d5ef2412dfbf603aedfe3f576ae220cd6f1add726a9b8663559b46c",
+      "size_bytes": 1620,
+      "lines": 54
+    },
+    {
+      "path": "cieml/uncertainty/assemble.py",
+      "sha256": "3522aff6a3b3273ee9bf5fa7653a50d61f068b3a751d5a3bcabb4384a2451110",
+      "size_bytes": 30983,
+      "lines": 581
+    },
+    {
+      "path": "cieml/uncertainty/models.py",
+      "sha256": "0d03f86a6a9501e68131f2382d13065ffa84b488f3d51107cc132aa95ec9aaa9",
+      "size_bytes": 7030,
+      "lines": 179
+    },
+    {
+      "path": "cieml/uncertainty/propagate.py",
+      "sha256": "c69a37820465a8b6046bf85a2b1a355f2687b5e7642f7e7362e746fb1dcc26d5",
+      "size_bytes": 11064,
+      "lines": 253
+    },
+    {
+      "path": "cieml/uncertainty/reliability.py",
+      "sha256": "a748d22e0df4384816223629d41a0a841ca69679176c253dafd7a14e16936dd9",
+      "size_bytes": 4627,
+      "lines": 112
+    },
+    {
+      "path": "cieml/uncertainty/visualize.py",
+      "sha256": "ba5f1ad6688b578ccb79d1bcb3e29281c65bec51bb86f80993777b0007286d22",
+      "size_bytes": 16119,
+      "lines": 356
+    },
+    {
+      "path": "cieml/utils/__init__.py",
+      "sha256": "5db9b0372fda463af2de0b1ea29ebbd1bd42152f4288bc96b685e1f82b2119db",
+      "size_bytes": 37,
+      "lines": 1
+    },
+    {
+      "path": "cieml/utils/hypothesis_ledger.py",
+      "sha256": "3ff6806ee465e40f27efaf88d1fedae0708683bf3833199a2ca552ab144ad055",
+      "size_bytes": 1360,
+      "lines": 46
+    },
+    {
+      "path": "cieml/utils/io.py",
+      "sha256": "62ce9fbfde769925056fe941726b2ecdfeb7ec374a9b5ceb31442a61d028587d",
+      "size_bytes": 6877,
+      "lines": 190
+    },
+    {
+      "path": "cieml/utils/naming.py",
+      "sha256": "4806597ad46010f17ed42984f458d4975478f40c29656767df2bf27f8fbbeafa",
+      "size_bytes": 3640,
+      "lines": 96
+    },
+    {
+      "path": "cieml/validation/__init__.py",
+      "sha256": "c3fb6451a452f1cb0413fe06cbeb8b94d5c303d7047e917e3823c8e1992bb3be",
+      "size_bytes": 290,
+      "lines": 7
+    },
+    {
+      "path": "cieml/validation/__main__.py",
+      "sha256": "7f4c36140f8e72c9a4645d60ee1a84739490f13dec4e77eb9f3661030c2a4410",
+      "size_bytes": 80,
+      "lines": 4
+    },
+    {
+      "path": "cieml/validation/report.py",
+      "sha256": "1754c02e0fbbbe00e2c716e54348891f0d63844ef1d570f68edb09fff2ccbc58",
+      "size_bytes": 5415,
+      "lines": 158
+    },
+    {
+      "path": "cieml/validation/run_suite.py",
+      "sha256": "7ae0bd33202526640bc302e83af34ea85b9d2b3ad6005be7a689d3a15fa6dea3",
+      "size_bytes": 249,
+      "lines": 7
+    },
+    {
+      "path": "cieml/validation/suite.py",
+      "sha256": "6ca2f849adf41ec85870842fba66ba152ef741c2d091e51958e1e058d1233ce9",
+      "size_bytes": 8550,
+      "lines": 217
+    }
+  ],
+  "n_modules": 96
+}

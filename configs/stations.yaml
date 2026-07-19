@@ -1,0 +1,27 @@
+# Optional station metadata for spatial analysis / regional meteorology.
+# Coordinates are approximate public coastal locations; not used as analysis thresholds.
+campaign_region:
+  name: Visakhapatnam_coast
+  latitude: 17.72
+  longitude: 83.30
+  timezone: Asia/Kolkata
+
+stations:
+  Fishing_Harbour:
+    latitude: 17.695
+    longitude: 83.302
+  RK_Beach:
+    latitude: 17.712
+    longitude: 83.318
+  Rushikonda:
+    latitude: 17.782
+    longitude: 83.385
+  Sagarnagar:
+    latitude: 17.760
+    longitude: 83.350
+  Novotel:
+    latitude: 17.720
+    longitude: 83.330
+  Kailasagiri:
+    latitude: 17.748
+    longitude: 83.342

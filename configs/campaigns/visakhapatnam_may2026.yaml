@@ -1,0 +1,55 @@
+# Campaign metadata — first CIEML demonstration (not scientific conclusions).
+campaign_id: visakhapatnam_may2026
+title: Visakhapatnam coastal multiparameter sonde campaign (May 2026)
+domain: coastal
+claim_pack: coastal_monitoring_v1
+adapter: kor_ysi
+data_dir: DATA
+timezone: Asia/Kolkata
+
+region:
+  name: Visakhapatnam_coast
+  latitude: 17.72
+  longitude: 83.30
+
+stations:
+  Fishing_Harbour:
+    latitude: 17.695
+    longitude: 83.302
+    role: harbour_embayment
+    aliases: ["fishing harbour", "fishingharbor"]
+  RK_Beach:
+    role: open_coast
+    latitude: 17.712
+    longitude: 83.318
+    aliases: ["rk beach", "rkbeach"]
+  Rushikonda:
+    role: ambient_reference
+    latitude: 17.782
+    longitude: 83.385
+    aliases: ["rushikonda"]
+  Sagarnagar:
+    role: open_coast
+    latitude: 17.760
+    longitude: 83.350
+    aliases: ["sagarnagar"]
+  Novotel:
+    role: open_coast
+    latitude: 17.720
+    longitude: 83.330
+    aliases: ["novotel"]
+  Kailasagiri:
+    role: open_coast
+    latitude: 17.748
+    longitude: 83.342
+    aliases: ["kailasagiri"]
+
+external:
+  meteorology:
+    provider: open_meteo_archive
+    latitude: 17.72
+    longitude: 83.30
+
+notes:
+  - Coordinates are approximate public coastal locations; not analysis thresholds.
+  - Scientific outputs live under outputs/phase1 … phase8.

@@ -1,0 +1,10 @@
+# Stub domain profile — extend before production use.
+domain: aquaculture
+version: "0.0.1"
+title: "Aquaculture (stub)"
+description: >
+  Placeholder for Phase B adoption. Inherit/adapt coastal relationships where
+  scientifically appropriate; do not run production analyses on this stub alone.
+extends: coastal
+status: stub
+note: Load coastal.yaml until this profile is fully authored.

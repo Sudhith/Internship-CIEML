@@ -1,0 +1,76 @@
+# Framework Validation Suite (SC-FVE)
+version: "1.0.0"
+certification_levels: [CERTIFIED, CONDITIONAL, NOT_READY]
+primary_demonstration: visakhapatnam_may2026
+
+baselines:
+  claim_classes: configs/validation/baselines/claim_classes.json
+  note: >
+    Populate/refresh baselines only via documented regression protocol waivers.
+
+tests:
+  - id: arch_artifact_contract_covers_loaders
+    group: architecture
+    category: V-ARCH
+    critical: true
+    description: Evidence loader keys are declared in artifact contract.
+
+  - id: arch_claim_pack_drives_ebsve
+    group: architecture
+    category: V-ARCH
+    critical: true
+    description: Default claim pack resolves six coastal validators.
+
+  - id: arch_domain_priors_not_in_scoring
+    group: architecture
+    category: V-ARCH
+    critical: true
+    description: scoring.py contains no Visakhapatnam / station literals.
+
+  - id: acc_default_campaign_loads
+    group: acceptance
+    category: V-EXT
+    critical: true
+    description: Domain, campaign, and claim pack load successfully.
+
+  - id: acc_phase_runners_exist
+    group: acceptance
+    category: V-SOFT
+    critical: true
+    description: Phase runner scripts 1–8 exist.
+
+  - id: evid_claim_pack_id_schema
+    group: evidence_integrity
+    category: V-TRACE
+    critical: true
+    description: Claim pack exposes pack_id and claim_id fields.
+
+  - id: sci_uncertainty_no_complement_rule
+    group: scientific
+    category: V-SCI
+    critical: true
+    description: Uncertainty modules must not define U as 100-C.
+
+  - id: sci_failure_catalog_nonempty
+    group: scientific
+    category: V-SCI
+    critical: true
+    description: Failure catalog defines modes and severity policy.
+
+  - id: reg_visakhapatnam_claim_classes
+    group: regression
+    category: V-REPRO
+    critical: true
+    description: Frozen claim classifications match baseline when artifacts present.
+
+  - id: ext_domain_stub_loads
+    group: extensibility
+    category: V-EXT
+    critical: false
+    description: harbour domain stub extends coastal.
+
+  - id: acc_phase_k_engines_import
+    group: acceptance
+    category: V-EXT
+    critical: true
+    description: Decision, applicability, and knowledge packages import.

@@ -1,0 +1,159 @@
+# Scientific Failure Mode Catalog (SC-FMF)
+# Machine-readable. Human index: docs/failure/ENGINE_CATALOG.md
+version: "1.0.0"
+policy:
+  confidence_multipliers:
+    INFO: 1.00
+    WARNING: 0.95
+    DEGRADED: 0.75
+    CRITICAL: 0.40
+    FATAL: 0.00
+  # Independent severity -> raw uncertainty-contribution magnitude (0-100), fed
+  # into cieml.uncertainty as a provenance-tagged component (provenance_id =
+  # f"failure_{mode_id}"), NOT derived from confidence_multipliers or from
+  # 100 - confidence. Failure reduces confidence AND separately adds
+  # uncertainty; the two tables are declared independently on purpose so
+  # neither can silently become the other's complement (see SC-FMF §6, tested
+  # by configs/validation sci_uncertainty_no_complement_rule).
+  uncertainty_contributions:
+    INFO: 0.0
+    WARNING: 10.0
+    DEGRADED: 25.0
+    CRITICAL: 50.0
+    FATAL: 80.0
+  compose: min   # min | multiply
+  suppress_recommendations_at: CRITICAL
+  abort_hard_dependents_at: FATAL
+
+# Threshold defaults (domain/campaign may override)
+thresholds:
+  min_stations_hard: 3
+  min_stations_warn: 5
+  silhouette_warn: 0.25
+  silhouette_critical: 0.10
+  driver_abs_corr_warn: 0.90
+  external_support_floor: 0.20
+  claim_confidence_floor_for_dss: 70.0
+  dss_allow_if_classification_in: [PROVISIONAL, DEFINITIVE]
+
+modes:
+  # --- Discovery ---
+  - mode_id: disc_too_few_stations
+    engine_id: discovery
+    class: F-INPUT
+    severity: DEGRADED
+    severity_if:
+      n_stations_lt_hard: CRITICAL
+    title: "Too few stations for robust regime discovery"
+    detection: n_stations
+    recovery: [reduce_confidence, narrow_claim]
+    confidence_reduction: severity_policy
+    user_message_id: disc_too_few_stations.v1
+    contract_refs: [SC-DISC]
+
+  - mode_id: disc_poor_silhouette
+    engine_id: discovery
+    class: F-METHOD
+    severity: DEGRADED
+    title: "Poor cluster separation (silhouette)"
+    detection: selected_silhouette
+    recovery: [reduce_confidence]
+    contract_refs: [SC-DISC]
+
+  - mode_id: disc_high_noise
+    engine_id: discovery
+    class: F-METHOD
+    severity: DEGRADED
+    title: "High noise / low stability under stress"
+    detection: stage14_noise_or_stability
+    recovery: [reduce_confidence, prefer_fallback_method]
+    fallback: structure_unsupported
+    contract_refs: [SC-DISC]
+
+  # --- Explainability ---
+  - mode_id: xai_high_feature_correlation
+    engine_id: explainability
+    class: F-ASSUMP
+    severity: WARNING
+    title: "Highly correlated driver variables"
+    detection: top_driver_abs_corr
+    recovery: [log_only, reduce_confidence]
+    contract_refs: [SC-XAI]
+
+  - mode_id: xai_method_disagreement
+    engine_id: explainability
+    class: F-CONFLICT
+    severity: WARNING
+    title: "Explainability methods disagree on ranks"
+    detection: shap_vs_permutation_discord
+    recovery: [reduce_confidence]
+    contract_refs: [SC-XAI]
+
+  # --- Anomaly ---
+  - mode_id: anom_no_external_validation
+    engine_id: anomaly_intelligence
+    class: F-EVID
+    severity: DEGRADED
+    title: "No external validation for anomalies"
+    detection: external_support_missing_or_low
+    recovery: [reduce_confidence, suppress_claim_pillar]
+    pillar_impact: environmental
+    contract_refs: [SC-ANOM]
+
+  - mode_id: anom_zero_consensus
+    engine_id: anomaly_intelligence
+    class: F-METHOD
+    severity: DEGRADED
+    title: "Empty multi-method consensus set"
+    detection: consensus_empty
+    recovery: [prefer_fallback_method, reduce_confidence]
+    fallback: single_method_exploratory
+    contract_refs: [SC-ANOM]
+
+  # --- Decision Support ---
+  - mode_id: dss_low_evidence
+    engine_id: decision_support
+    class: F-EVID
+    severity: CRITICAL
+    title: "Evidence too weak for actionable recommendations"
+    detection: ebsve_confidence_or_class
+    recovery: [suppress_recommendation, require_reviewer]
+    contract_refs: [SC-DSS]
+
+  - mode_id: dss_missing_applicability
+    engine_id: decision_support
+    class: F-XFER
+    severity: DEGRADED
+    title: "Applicability domain missing or thin"
+    detection: applicability_thin
+    recovery: [narrow_claim, suppress_recommendation]
+    contract_refs: [SC-DSS, SC-APP]
+
+  # --- EBSVE / integrity ---
+  - mode_id: ebsve_missing_artifact
+    engine_id: ebsve
+    class: F-INTEG
+    severity: CRITICAL
+    title: "Required evidence artifact missing for claim"
+    detection: evidence_bundle_key_absent
+    recovery: [suppress_claim_pillar, reduce_confidence]
+    contract_refs: [SC-EBSVE]
+
+  - mode_id: ebsve_empty_claim_pack
+    engine_id: ebsve
+    class: F-INTEG
+    severity: FATAL
+    title: "Claim pack empty"
+    detection: claim_pack_empty
+    recovery: [abort_engine]
+    contract_refs: [SC-EBSVE]
+
+  # --- Cross-cutting ---
+  - mode_id: integ_contract_failure_unmapped
+    engine_id: framework_validation
+    class: F-INTEG
+    severity: CRITICAL
+    title: "Contract failure condition has no catalog mode"
+    detection: validation_suite
+    recovery: [require_reviewer]
+    contract_refs: [SC-FVE]

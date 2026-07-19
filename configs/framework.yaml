@@ -1,0 +1,184 @@
+# CIEML 2.0 — Framework constitution (Phase A)
+# Engine-level knobs and contracts. Domain science does NOT live here.
+# Domain science → configs/domains/ (Phase B). Campaign metadata → configs/campaigns/.
+
+framework:
+  name: CIEML
+  title: Environmental Intelligence Framework
+  version: "2.0.0-rc1"
+  redesign_phase: K
+  philosophy: reusable_methodology_not_single_study_pipeline
+
+release:
+  candidate: RC-1
+  build_number: 1
+  release_date: "2026-07-19"
+  status: frozen_for_regression
+  git_tag_recommendation: v2.0.0-rc1
+  note: >
+    Feature-complete per Phases A-K + SC-FMF full stage wiring + SC-FVE. No
+    algorithmic, statistical, threshold, or confidence/uncertainty calibration
+    changes are permitted from this point without a new RC. See
+    docs/release/ for the full RC-1 evidence set (integration, freeze,
+    regression, reproducibility, integrity, certification reports).
+  versions:
+    artifact_contract: "1"
+    scientific_contracts: "1.0.0"
+    domain_profile_coastal: "1.0.0"
+    claim_pack_coastal_monitoring_v1: "1.0.0"
+    failure_catalog: "1.0.0"
+    validation_suite: "1.0.0"
+    regression_baseline: visakhapatnam_may2026
+
+artifact_contract:
+  version: "1"
+  phase_output_root: outputs
+  stage_filename_pattern: "stage{nn}_{name}.{ext}"
+  register_filename: stage_m1_hypothesis_register.json
+  evidence_alias_map: cieml.evidence.artifacts
+  note: >
+    Artifact IDs are a frozen interchange contract. Logical evidence keys and
+    primary stageNN_* filenames are listed in cieml.evidence.artifacts; aliases
+    may be added without rewriting validators. Do not rename primary filenames
+    without updating that map and any pipeline writers.
+
+reproducibility:
+  default_random_state: 42
+  note: Stages may define their own local seeds; this is the framework default.
+
+
+scientific_contracts:
+  version: "1.0.0"
+  directory: docs/contracts
+  schema: docs/contracts/_SCHEMA.md
+  index: docs/contracts/README.md
+  rule: >
+    Every engine must satisfy its Scientific Contract. Case studies demonstrate
+    contract compliance; they do not redefine guarantees. Changing guarantees,
+    required inputs, or failure conditions requires a contract version bump.
+  engines:
+    SC-DCL: docs/contracts/01_domain_configuration.md
+    SC-ING: docs/contracts/02_universal_ingestion.md
+    SC-QA: docs/contracts/03_scientific_qa.md
+    SC-PHYS: docs/contracts/04_physical_knowledge.md
+    SC-STAT: docs/contracts/05_statistical_intelligence.md
+    SC-DISC: docs/contracts/06_discovery.md
+    SC-XAI: docs/contracts/07_explainability.md
+    SC-ANOM: docs/contracts/08_anomaly_intelligence.md
+    SC-EBSVE: docs/contracts/09_ebsve.md
+    SC-DSS: docs/contracts/10_decision_support.md
+    SC-APP: docs/contracts/11_applicability_domain.md
+    SC-KB: docs/contracts/12_knowledge_base.md
+    SC-UNC: docs/contracts/13_uncertainty.md  # deprecated; split into SC-MMU + SC-REL below
+    SC-MMU: docs/contracts/13_measurement_model_uncertainty.md
+    SC-REL: docs/contracts/14_evidence_reliability.md
+    SC-FMF: docs/contracts/15_failure_modes.md
+    SC-FVE: docs/contracts/16_framework_validation.md
+    SC-CEAM: docs/contracts/17_coastal_environmental_analysis.md
+
+evidence:
+  pillars:
+    - statistical
+    - practical
+    - physical
+    - environmental
+  pillar_independence: required
+  scoring:
+    scale: "0_to_100_continuous"
+    implementation: cieml.evidence.scoring
+  classification_tiers:
+    # Mirrors cieml.evidence.scoring.classify() exactly. This is what SC-EBSVE
+    # (status: implemented) actually returns today — do not add tiers here
+    # without adding them in scoring.py first, and vice versa.
+    - Definitive
+    - Provisional
+    - Exploratory
+  classification_thresholds:
+    # Named constants in cieml.evidence.scoring; mirrored here for reviewers who
+    # want the cutovers without reading source. classify() gates on the WEAKEST
+    # pillar, not the mean, so one very weak pillar cannot be averaged away.
+    definitive_min_all_pillars: 90.0
+    provisional_min_weakest_pillar: 70.0
+    below_provisional_floor: Exploratory
+  classification_tiers_target:
+    # Aspirational richer taxonomy discussed for a future EBSVE revision. NOT
+    # implemented — classify() cannot return any of these today. Do not present
+    # this list as current engine behavior; promote entries to classification_tiers
+    # only alongside a matching cieml.evidence.scoring change and contract version bump.
+    - Strongly Supported
+    - Supported
+    - Inconclusive
+    - Rejected
+  classification_note: >
+    Case studies must not invent alternate tier names in framework docs. If
+    classification_tiers and cieml.evidence.scoring.classify() ever disagree,
+    scoring.py is the source of truth and this file is stale.
+
+claims:
+  model: open_claim_pack
+  default_pack: coastal_monitoring_v1
+  packs_dir: configs/claims
+  legacy_pack_id: coastal_monitoring_h1_h6
+  legacy_source: configs/hypotheses.yaml  # deprecated shim → claim pack
+  note: >
+    Phase J complete: H1–H6 live in configs/claims/coastal_monitoring_v1.yaml.
+    HypothesisValidator pillar ABC unchanged; engine resolves plugins from the pack.
+
+
+failure_modes:
+  catalog: configs/failure/catalog.yaml
+  docs: docs/failure
+  contract: SC-FMF
+  note: >
+    Engines must emit FailureAssessment packets. CRITICAL+ suppresses DSS
+    recommendations; FATAL aborts hard dependents.
+
+framework_validation:
+  suite: configs/validation/suite.yaml
+  docs: docs/validation
+  contract: SC-FVE
+  output_dir: outputs/framework_validation
+  note: >
+    Certifies the framework (reproducibility, contracts, evidence integrity),
+    not campaign scientific truth.
+
+engines:
+  domain_configuration: implemented       # Phase B
+  universal_ingestion: partial           # Phase C adapters + schema; Kor still primary
+  scientific_qa: partial                 # Phase D registry (range+overshoot pilot); Stage 2 still native
+  physical_knowledge: implemented        # Phase E engine + domain relationship catalog
+  statistical_intelligence: implemented        # Phase F method selection log
+  discovery: implemented                 # Phase G selection trace + validation pipeline
+  explainability: implemented            # Phase H multi-method consensus
+  anomaly_intelligence: implemented      # Phase I probable-origin taxonomy
+  context_external: implemented          # Stage 10 (provider configurable later)
+  context_spatiotemporal: implemented    # Stage 11
+  process_labeling: implemented          # Stage 12 CEAM (coastal environmental analysis)
+  coastal_environmental_analysis: implemented  # Stage 12 / cieml.ceam
+  ebsve: implemented                     # Stage 14 + claim packs (Phase J) + cieml/evidence
+  decision_support: implemented          # Phase K SC-DSS + role templates + FMF gate
+  applicability_domain: implemented      # Phase K SC-APP
+  knowledge_base: implemented            # Phase K SC-KB append-only
+  uncertainty_propagation: implemented  # SC-MMU + SC-REL (v2); Stage 14 ledger + figures. SC-UNC v1 deprecated.
+  failure_modes: implemented             # SC-FMF catalog + detectors wired into all 6 catalog engines: discovery, explainability, anomaly_intelligence, ebsve, decision_support, framework_validation
+  framework_validation: partial         # SC-FVE suite + certification report
+
+separation:
+  framework_docs: docs/FRAMEWORK.md
+  case_study_docs: docs/CASE_STUDY_VISAKHAPATNAM.md
+  domain_profiles_dir: configs/domains
+  campaign_profiles_dir: configs/campaigns
+  claim_packs_dir: configs/claims
+  decision_templates_dir: configs/decision
+  knowledge_base_dir: knowledge_base
+  case_notes_dir: cases
+  rule: >
+    Framework documentation must contain no campaign-specific scientific
+    conclusions. Case documentation must not redefine analytical philosophy.
+
+regression:
+  primary_demonstration: visakhapatnam_may2026
+  rule: >
+    Contract-touching phases re-run the demonstration campaign and diff critical
+    artifacts (regime labels, driver ranks, anomaly consensus, claim classes)
+    unless a phase explicitly documents a scientific-neutral exception.
